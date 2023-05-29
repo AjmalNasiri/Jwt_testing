@@ -21,7 +21,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
-        // $request->validate([             
+        // $request->validate([
         //     'firstname'=>'required',
         //     'email'=>'required',
         //     'password'=>'required|min:6|max:24|confirmed'
@@ -97,4 +97,9 @@ class RegisterController extends Controller
     //         'expires_in' => auth()->factory()->getTTL() * 60
     //     ]);
     // }
+
+    public function ajmaltesting()
+    {
+        return 'ajmal';
+    }
 }
