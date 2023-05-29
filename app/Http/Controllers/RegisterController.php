@@ -100,6 +100,6 @@ class RegisterController extends Controller
 
     public function ajmaltesting()
     {
-        return 'ajmal';
+        return 'nasiri abdul latif and ajmal ajmlan ajmal';
     }
 }
