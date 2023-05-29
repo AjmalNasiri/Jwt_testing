@@ -44,6 +44,7 @@ class RegisterController extends Controller
             return response()->json(array('status' => 409, 'message' => ' Conflicted '.$e->getMessage()));
         }
     }
+//     comment added for test
     public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
