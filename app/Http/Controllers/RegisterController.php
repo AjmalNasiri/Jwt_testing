@@ -18,21 +18,31 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
+    
+    
+    /**
+     * Description:     add a new user
+     * HTTP Method:     POST
+     * URL:             http://127.0.0.1:8000/user_register
+     * @Param:          {form-fields}: {{name: string, email: string, image?: string}}   
+     * @Returns:        {object}: returns a success or conflict message
+     */
+    public function user_register(Request $request)
     {
-
-        // $request->validate([
-        //     'firstname'=>'required',
-        //     'email'=>'required',
-        //     'password'=>'required|min:6|max:24|confirmed'
-
-        // ]);
         $user =new User();
         $user->name =$request->firstname;
         $user->email=$request->email;
         $user->password=Hash::make($request->password);
-        $user->save();
-        // echo "sdfsdf";
+        // use try catch for better error handling
+         try
+        {
+            $user->save();
+            return response()->json(array('status' => 201, 'message' => 'User Successfully Registered'));
+        }
+        catch(Exception $e)
+        {
+            return response()->json(array('status' => 409, 'message' => ' Conflicted '.$e->getMessage()));
+        }
     }
     public function login(Request $request)
     {
@@ -100,6 +110,6 @@ class RegisterController extends Controller
 
     public function ajmaltesting()
     {
-        return 'nasiri abdul latif and ajmal ajmlan ajmal';
+        return 'ajmal';
     }
 }
