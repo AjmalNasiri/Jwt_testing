@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -20,6 +21,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+
 
         // $request->validate([
         //     'firstname'=>'required',
@@ -43,11 +45,12 @@ class RegisterController extends Controller
               'message'=>'incorrect'],Response::HTTP_UNAUTHORIZED);
         }
 
-        return response()->json([
-            'success'=>true,
-            'token'=>$token,
-            'user'=>Auth::user(),
-        ],Response::HTTP_OK);
+        $user=auth::User();
+        $tokens = $user->createToken('Token')->plainTextToken;
+        $cookie=cookie('jwt',$tokens,60*24);
+        return response([
+         'message'=>$tokens,
+        ])->withCookie($cookie);
     }
 
     /**
@@ -55,9 +58,9 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
-        return response()->json(auth()->user());
+        return Auth::User();
     }
 
     /**
@@ -67,9 +70,12 @@ class RegisterController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        $cookie=Cookie::forget('jwt');
 
-        return response()->json(['message' => 'Successfully logged out']);
+
+        return response([
+           'message'=>'success'
+        ])->withCookie($cookie);
     }
 
     /**
@@ -100,6 +106,6 @@ class RegisterController extends Controller
 
     public function ajmaltesting()
     {
-        return 'nasiri abdul latif and ajmal ajmlan ajmal';
+        return 'nasiri abdul latif and ajmal ajmal ajmal';
     }
 }

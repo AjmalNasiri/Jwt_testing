@@ -22,4 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::Post('register',[RegisterController::class,'register'])->name('register');
 
 Route::Post('login',[RegisterController::class,'login'])->name('login');
-Route::get('logout',[RegisterController::class,'logout'])->name('logout');
+
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('user',[RegisterController::class,'user'])->name('user');
+    Route::Post('logout',[RegisterController::class,'logout'])->name('logout');
+});
+
+
