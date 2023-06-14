@@ -39,7 +39,7 @@ class RegisterController extends Controller
 
         // ]);
         $user =new User();
-        $user->name =$request->firstname;
+        $user->name =$request->name;
         $user->email=$request->email;
         $user->password=Hash::make($request->password);
         // use try catch for better error handling
@@ -65,9 +65,13 @@ class RegisterController extends Controller
 
         $user=auth::User();
         $tokens = $user->createToken('Token')->plainTextToken;
-        $cookie=cookie('jwt',$tokens,60*24);
+        // $cookie = Cookie::make('mycookie', 'myvalue', 60, '/', 'example.com', false, false);
+        $cookie=cookie('jwt',$tokens,60*24,'/','localhost',false,false);
+
         return response([
+            'success'=>true,
          'message'=>$tokens,
+
         ])->withCookie($cookie);
     }
 

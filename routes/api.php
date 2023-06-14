@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 // Route::Post('register',[RegisterController::class,'register'])->name('register');
-Route::Post('register',[RegisterController::class,'register'])->name('register');
+Route::Post('register',[RegisterController::class,'user_register'])->name('register');
 
 Route::Post('login',[RegisterController::class,'login'])->name('login');
 
